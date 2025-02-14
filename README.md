@@ -1,4 +1,4 @@
-# Foo-Bar-Baz-Qux-Corge-Grault
+# Foo-com.jad.Bar-com.jad.Baz-com.jad.Qux-Corge-Grault
 
 # Association - Agrégation - Composition
 

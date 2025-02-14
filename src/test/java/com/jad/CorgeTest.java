@@ -56,8 +56,8 @@ class CorgeTest {
 
     @Test
     void constructorTest() {
-        Class<?> barClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.Bar"),
-                                               "The class Bar does not exist.");
+        Class<?> barClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.com.jad.Bar"),
+                                               "The class com.jad.Bar does not exist.");
         Class<?> fooClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.Foo"),
                                                "The class Foo does not exist.");
         Constructor<?> fooConstructor = assertDoesNotThrow(() -> fooClass.getDeclaredConstructor(barClass),
@@ -66,7 +66,7 @@ class CorgeTest {
                 () -> CorgeTest.corgeClass.getDeclaredConstructor(fooClass),
                 "The constructor of Corge does not exist.");
         Object barInstance = assertDoesNotThrow(() -> barClass.getDeclaredConstructor().newInstance(),
-                                                "Failed to create an instance of Bar.");
+                                                "Failed to create an instance of com.jad.Bar.");
         Object fooInstance = assertDoesNotThrow(() -> fooConstructor.newInstance(barInstance),
                                                 "Failed to create an instance of Foo.");
         Object corgeInstance = assertDoesNotThrow(() -> corgeConstructor.newInstance(fooInstance),
@@ -81,8 +81,8 @@ class CorgeTest {
 
     @Test
     void getFooAndSetFooTest() {
-        Class<?> barClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.Bar"),
-                                               "The class Bar does not exist.");
+        Class<?> barClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.com.jad.Bar"),
+                                               "The class com.jad.Bar does not exist.");
         Class<?> fooClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.Foo"),
                                                "The class Foo does not exist.");
         Method getFooMethod = assertDoesNotThrow(() -> CorgeTest.corgeClass.getDeclaredMethod("getFoo"),
@@ -92,11 +92,11 @@ class CorgeTest {
         Method getCorgeMethod = assertDoesNotThrow(() -> fooClass.getDeclaredMethod("getCorge"),
                                                    "The method 'getCorge' does not exist.");
 
-        // Create instances of Bar
+        // Create instances of com.jad.Bar
         Object barInstance1 = assertDoesNotThrow(() -> barClass.getDeclaredConstructor().newInstance(),
-                                                 "Failed to create an instance of Bar.");
+                                                 "Failed to create an instance of com.jad.Bar.");
         Object barInstance2 = assertDoesNotThrow(() -> barClass.getDeclaredConstructor().newInstance(),
-                                                 "Failed to create an instance of Bar.");
+                                                 "Failed to create an instance of com.jad.Bar.");
 
         // Create instances of Foo
         Object fooInstance1 = assertDoesNotThrow(

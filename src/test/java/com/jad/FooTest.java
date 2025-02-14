@@ -23,12 +23,12 @@ class FooTest {
     @BeforeAll
     static void beforeAll() {
         FooTest.fooClass = Utils.testIfClassExists("com.jad.Foo");
-        FooTest.barClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.Bar"),
-                                              "The class Bar does not exist.");
+        FooTest.barClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.com.jad.Bar"),
+                                              "The class com.jad.Bar does not exist.");
         Constructor<?> constructor = assertDoesNotThrow(() -> FooTest.fooClass.getDeclaredConstructor(FooTest.barClass),
                                                         "The constructor of Foo does not exist.");
         FooTest.barInstance = assertDoesNotThrow(() -> FooTest.barClass.getDeclaredConstructor().newInstance(),
-                                                 "Failed to create an instance of Bar.");
+                                                 "Failed to create an instance of com.jad.Bar.");
         FooTest.fooInstance = assertDoesNotThrow(() -> constructor.newInstance(FooTest.barInstance),
                                                  "Failed to create an instance of Foo.");
     }
@@ -72,21 +72,21 @@ class FooTest {
 
     @Test
     void barAttributeTest() {
-        Utils.testIfPrivateAttributeExistsWithGoodType("com.jad.Bar",
+        Utils.testIfPrivateAttributeExistsWithGoodType("com.jad.com.jad.Bar",
                                                        "bar",
                                                        FooTest.fooClass);
     }
 
     @Test
     void bazsAttributeTest() {
-        Utils.testIfPrivateAttributeExistsWithGenericType("java.util.List<com.jad.Baz>",
+        Utils.testIfPrivateAttributeExistsWithGenericType("java.util.List<com.jad.com.jad.Baz>",
                                                           "bazs",
                                                           FooTest.fooClass);
     }
 
     @Test
     void quxAttributeTest() {
-        Utils.testIfPrivateAttributeExistsWithGoodType("com.jad.Qux",
+        Utils.testIfPrivateAttributeExistsWithGoodType("com.jad.com.jad.Qux",
                                                        "qux",
                                                        FooTest.fooClass);
     }
@@ -107,9 +107,9 @@ class FooTest {
         Class<?>[] parameterTypes = constructor.getParameterTypes();
         assertEquals(FooTest.NB_CONSTRUCTOR_PARAMETERS, parameterTypes.length,
                      "The constructor of Foo should have " + FooTest.NB_CONSTRUCTOR_PARAMETERS + " parameter.");
-        assertEquals(FooTest.barClass, parameterTypes[0], "The parameter of the constructor should be of type Bar.");
+        assertEquals(FooTest.barClass, parameterTypes[0], "The parameter of the constructor should be of type com.jad.Bar.");
         Object barInstance = assertDoesNotThrow(() -> FooTest.barClass.getDeclaredConstructor().newInstance(),
-                                                "Failed to create an instance of Bar.");
+                                                "Failed to create an instance of com.jad.Bar.");
         Object FooInstance = assertDoesNotThrow(() -> constructor.newInstance(barInstance),
                                                 "Failed to create an instance of Foo.");
         Field barField = assertDoesNotThrow(() -> FooTest.fooClass.getDeclaredField("bar"),
@@ -163,22 +163,22 @@ class FooTest {
 
     @Test
     void addBazAndGetBazsTest() {
-        Class<?> bazClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.Baz"),
-                                               "The class Baz does not exist.");
+        Class<?> bazClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.com.jad.Baz"),
+                                               "The class com.jad.Baz does not exist.");
         Method addBazMethod = assertDoesNotThrow(() -> FooTest.fooClass.getDeclaredMethod("addBaz", bazClass),
                                                  "The method 'addBaz' does not exist.");
         Method getBazsMethod = assertDoesNotThrow(() -> FooTest.fooClass.getDeclaredMethod("getBazs"),
                                                   "The method 'getBazs' does not exist.");
         addBazMethod.setAccessible(true);
         Object bazInstance = assertDoesNotThrow(() -> bazClass.getDeclaredConstructor().newInstance(),
-                                                "Failed to create an instance of Baz.");
+                                                "Failed to create an instance of com.jad.Baz.");
         assertDoesNotThrow(() -> addBazMethod.invoke(FooTest.fooInstance, bazInstance),
                            "Failed to invoke the method 'addBaz'.");
         @SuppressWarnings("unchecked")
         List<Object> bazs = assertDoesNotThrow(() -> (List<Object>) getBazsMethod.invoke(FooTest.fooInstance),
                                                "Failed to invoke the method 'getBazs'.");
         assertNotNull(bazs, "The method 'getBazs' returned null.");
-        assertTrue(bazs.contains(bazInstance), "The 'bazs' list does not contain the added Baz instance.");
+        assertTrue(bazs.contains(bazInstance), "The 'bazs' list does not contain the added com.jad.Baz instance.");
     }
 
     @Test
