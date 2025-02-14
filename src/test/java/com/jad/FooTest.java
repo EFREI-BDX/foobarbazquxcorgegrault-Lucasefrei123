@@ -23,7 +23,7 @@ class FooTest {
     @BeforeAll
     static void beforeAll() {
         FooTest.fooClass = Utils.testIfClassExists("com.jad.Foo");
-        FooTest.barClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.com.jad.Bar"),
+        FooTest.barClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.Bar"),
                                               "The class com.jad.Bar does not exist.");
         Constructor<?> constructor = assertDoesNotThrow(() -> FooTest.fooClass.getDeclaredConstructor(FooTest.barClass),
                                                         "The constructor of Foo does not exist.");
@@ -72,21 +72,21 @@ class FooTest {
 
     @Test
     void barAttributeTest() {
-        Utils.testIfPrivateAttributeExistsWithGoodType("com.jad.com.jad.Bar",
+        Utils.testIfPrivateAttributeExistsWithGoodType("com.jad.Bar",
                                                        "bar",
                                                        FooTest.fooClass);
     }
 
     @Test
     void bazsAttributeTest() {
-        Utils.testIfPrivateAttributeExistsWithGenericType("java.util.List<com.jad.com.jad.Baz>",
+        Utils.testIfPrivateAttributeExistsWithGenericType("java.util.List<com.jad.Baz>",
                                                           "bazs",
                                                           FooTest.fooClass);
     }
 
     @Test
     void quxAttributeTest() {
-        Utils.testIfPrivateAttributeExistsWithGoodType("com.jad.com.jad.Qux",
+        Utils.testIfPrivateAttributeExistsWithGoodType("com.jad.Qux",
                                                        "qux",
                                                        FooTest.fooClass);
     }
@@ -163,7 +163,7 @@ class FooTest {
 
     @Test
     void addBazAndGetBazsTest() {
-        Class<?> bazClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.com.jad.Baz"),
+        Class<?> bazClass = assertDoesNotThrow(() -> ClassLoader.getSystemClassLoader().loadClass("com.jad.Baz"),
                                                "The class com.jad.Baz does not exist.");
         Method addBazMethod = assertDoesNotThrow(() -> FooTest.fooClass.getDeclaredMethod("addBaz", bazClass),
                                                  "The method 'addBaz' does not exist.");
